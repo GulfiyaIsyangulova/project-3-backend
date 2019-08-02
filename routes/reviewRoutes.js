@@ -36,9 +36,10 @@ Review.find()
 
     //es.json(req.body.owner)
     Review.create({
-      gym: req.body.gym,
+      // gym: req.body.gymid,
+      gym: req.user._id,
       title: req.body.title,
-      owner: req.body.owner,
+      owner: req.user._id,
       rating: req.body.rating,
       content: req.body.content
     })
@@ -52,8 +53,10 @@ Review.find()
 
   router.post('/update/:id', (req, res, next)=>{
     Review.findByIdAndUpdate(req.params.id, {
-      title: req.body.theTitle,
-      description: req.body.theDescription
+      title: req.body.title,
+      rating: req.body.rating,
+      content: req.body.content,
+      
     })
     .then((singleReview)=>{
       res.json(singleReview);
