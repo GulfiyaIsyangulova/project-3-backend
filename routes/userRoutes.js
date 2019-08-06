@@ -107,8 +107,8 @@ router.post('/logout', (req, res, next) => {
 
 router.get('/getcurrentuser', (req, res, next) => {
     // req.isAuthenticated() is defined by passport
+    console.log(req.user);
     if (req.user) {
-
         res.status(200).json(req.user);
         return;
     }

@@ -77,4 +77,8 @@ app.use('/api/auth', userRoutes);
 const reviewRoutes = require('./routes/reviewRoutes');
 app.use('/reviews', reviewRoutes);
 
+const gymsRoutes = require('./routes/gymRoutes');
+app.use('/gyms', gymsRoutes);
+
+
 module.exports = app;

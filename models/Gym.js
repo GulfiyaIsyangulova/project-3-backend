@@ -7,6 +7,6 @@ const GymSchema = new Schema({
   image: {type: String}
 });
 
-const Gym = mongoose.model('Gym', gymSchema);
+const Gym = mongoose.model('Gym', GymSchema);
 
 module.exports = Gym;
