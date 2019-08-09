@@ -3,11 +3,12 @@ const router  = express.Router();
 const Review = require('../models/Review');
 
 /* GET home page */
-router.get('/', (req, res, next) => {
+router.get('/gymComments/:gymId', (req, res, next) => {
   // this route is actualy localhost:3000/api/projects 
 //  because of the preface i put on this routes file in app.js
-Review.find()
+Review.find({gym: req.params.gymId}).populate('owner')
   .then((allTheReviews)=>{
+    console.log("the gyms comments -------------- ", allTheReviews);
     res.json(allTheReviews);
   })
   .catch((err)=>{
@@ -30,14 +31,15 @@ Review.find()
 
 
 
-  router.post('/', (req, res, next)=>{
+  router.post('/create', (req, res, next)=>{
+    console.log("the info for the review -------------------- ", req.body);
 
     //res.json(req.body);
 
     //es.json(req.body.owner)
     Review.create({
-      // gym: req.body.gymid,
-      gym: req.user._id,
+      // gym: req.user._id,
+      gym: req.body.gymid,
       title: req.body.title,
       owner: req.user._id,
       rating: req.body.rating,
@@ -57,7 +59,7 @@ Review.find()
       rating: req.body.rating,
       content: req.body.content,
       
-    })
+    }, {new: true})
     .then((singleReview)=>{
       res.json(singleReview);
     })

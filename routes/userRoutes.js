@@ -115,6 +115,16 @@ router.get('/getcurrentuser', (req, res, next) => {
     res.status(403).json({ message: 'Unauthorized' });
 });
 
+router.get('/profile/:id', (req, res, next)=>{
+    User.findById(req.params.id)
+    .then((UserProfile)=>{
+      res.json(UserProfile);
+    })
+    .catch((err)=>{
+      res.json(err);
+    })
+
+  })
 
 
 
