@@ -77,7 +77,7 @@ router.get('/getPlacesPhotos/:id', async (req, res, next) => {
 
   const details = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${req.params.id}&key=AIzaSyAU9nQ_E20F7o9usfZFFEv8lLeDkLjlCxk`);
 
-  let content = details.data.result;
+  let content = details.data.result;  
 
   // axios.get(`https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyAU9nQ_E20F7o9usfZFFEv8lLeDkLjlCxk&fields=name,rating,formatted_phone_number,opening_hours,website,photo&placeid=` + req.params.theid)
   let photoArr = [];

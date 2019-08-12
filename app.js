@@ -67,8 +67,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(cors({
-  credentials: true,
-  origin: ['http://localhost:3000', 'https://blah.herokuapp.com']
+  credentials: true, 
+  origin: '*'
+  // origin: ['http://localhost:3000', 'https://blah.herokuapp.com']
 }));
 
 const userRoutes = require('./routes/userRoutes');
