@@ -21,9 +21,6 @@ router.get('/', (req, res, next) => {
     })
 });
 
-
-
-
 // router.get('/getGymIds', (req, res, next) => {
 
 //         Gym.find().then((gyms)=>{
