@@ -21,6 +21,42 @@ router.get('/', (req, res, next) => {
     })
 });
 
+
+
+router.get('/getGymLL', async (req, res, next) => {
+  const googleMapsClient = require('@google/maps').createClient({
+    key: 'AIzaSyAU9nQ_E20F7o9usfZFFEv8lLeDkLjlCxk',
+    Promise: Promise
+  });
+
+  const gymArr = [];
+
+  Gym.find().then((gyms) => {
+      gyms.forEach(async gym => {
+        try {
+          const geoCode = await googleMapsClient.geocode({address: gym.address}).asPromise();
+
+          //console.log("GEOCODE");
+          //console.log(geoCode.json.results[0].geometry.location);
+          const { lat, lng } = geoCode.json.results[0].geometry.location;
+  
+          gym.lat = lat;
+          gym.lng = lng;
+  
+          gym.save();
+  
+          gymArr.push(gym);
+          //console.log(gymArr);
+        } catch (exception) {
+          console.log(exception);
+        }
+      });
+
+      console.log("GYM ARR SHOULD NOT BE EMPTY");
+      console.log(gymArr);
+      res.json(gymArr);
+  });
+});
 // router.get('/getGymIds', (req, res, next) => {
 
 //         Gym.find().then((gyms)=>{
@@ -74,7 +110,7 @@ router.get('/getPlacesPhotos/:id', async (req, res, next) => {
 
   const details = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${req.params.id}&key=AIzaSyAU9nQ_E20F7o9usfZFFEv8lLeDkLjlCxk`);
 
-  let content = details.data.result;  
+  let content = details.data.result;
 
   // axios.get(`https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyAU9nQ_E20F7o9usfZFFEv8lLeDkLjlCxk&fields=name,rating,formatted_phone_number,opening_hours,website,photo&placeid=` + req.params.theid)
   let photoArr = [];
